@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-import datetime
 
-# Create your views here.
-def test(request):
-    now = datetime.datetime.now()
-    html = "<html><body>It is now %s</body></html>" % now
-    return HttpResponse(html)
+# Main view
+def home(request):
+    # query database
+    # 
+    stocks = ['johan', 'erik', 'pontus', 'linus']
+    return render(request, 'mainpage/stock_list.html', {'stocks':stocks})

@@ -1,0 +1,10 @@
+{% extends "mainpage/base.html" %}
+
+{% block content %}
+    <div class="list-group"></div>
+    {% for item in stocks %}
+        <div class="list-group-item align-items-center">
+            <p class="name">{{item}}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
