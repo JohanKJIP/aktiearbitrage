@@ -1,4 +1,5 @@
 {% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,6 +7,9 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/mainpage.css' %}">
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script> 
+        <script src="{% static 'js/functions.js' %}"></script> 
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
     </head>
     <body>
         <h1 class="text-center">
@@ -14,8 +18,8 @@
         <div class="content container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                {% block content %}
-                {% endblock %}
+                    {% block content %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
