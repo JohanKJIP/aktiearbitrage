@@ -16,4 +16,5 @@ class Stock_Info(models.Model):
 
 class Stock_Price(models.Model):
     stock_info = models.ForeignKey(Stock_Info, on_delete=models.CASCADE)
+    date = models.DateField()
     stock_price = models.IntegerField()

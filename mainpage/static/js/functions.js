@@ -11,7 +11,7 @@ function renderListItems(stockList) {
         // check if the property/key is defined in the object itself, not in parent
         if (stockList.hasOwnProperty(key)) {           
             var itemdiv = "<div class=\"list-group-item align-items-center\"> \
-                    <p class=\"name\">Hejsan</p> \
+                    <p class=\"name\">" + stockList[key] + "</p> \
                     </div>"
             container.append(itemdiv);
         }
