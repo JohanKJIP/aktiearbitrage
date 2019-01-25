@@ -179,5 +179,9 @@ dmypy.json
 ### Python Patch ###
 .venv/
 
+# Credentials
+datafetcher/credentials.json
+
+
 # End of https://www.gitignore.io/api/python,django
 
