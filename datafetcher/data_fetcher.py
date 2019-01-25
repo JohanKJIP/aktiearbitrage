@@ -19,6 +19,17 @@ def connect():
     credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
     gc = gspread.authorize(credentials)
     return gc.open("Aktiearbitrage").sheet1
+
+def add_stocks(wks, rows):
+    """
+    This method just add the stock names to the Stock databaser.
+    Should only be run if database is totally empty.
+    """
+    for i in range(2, rows):
+        values_list = wks.row_values(i)
+        print('Adding: ' + values_list[0])
+        stock_entry = Stock(name=values_list[0])
+        stock_entry.save()
     
 def fetch_data(wks, rows):
     for i in range(2, rows):
@@ -46,5 +57,6 @@ def fetch_data(wks, rows):
 
 if __name__ == "__main__":
     wks = connect()
-    fetch_data(wks, 25)
+    # fetch_data(wks, 25)
+    add_stocks(wks, 25)
 

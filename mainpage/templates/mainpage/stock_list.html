@@ -1,6 +1,6 @@
 {% extends "mainpage/base.html" %}
 
 {% block content %}
-    <input type="text" id="search" name="search" />
+    <input type="text" id="search" name="search" onkeypress="updateSearchResult(this)"/>
     <div id="list-group"></div>
 {% endblock %}

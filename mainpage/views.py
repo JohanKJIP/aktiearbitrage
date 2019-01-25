@@ -11,19 +11,14 @@ def home(request):
     return render(request, 'mainpage/stock_list.html')
 
 def get_stock_list(request):
-    data = {
-        'name': 'Vitor',
-        'location': 'Finland',
-        'is_active': True,
-        'count': 28
-    }
+    query = request.GET['query']
+    #sort = request.GET['sort']
+    stock_list = Stock.objects.filter(name__contains=query)
+    data = {}
+    for stock in stock_list:
+        data[stock.name] = "test"
     return JsonResponse(data)
 
 def send(request):
-    p = Stock(name='Handelsbanken')
-    p.save()
-    p1 = Stock_Info(stock=p, stock_type='B')
-    p1.save()
-    p2 = Stock_Price(stock_info=p1, stock_price=120)
-    p2.save()
-    return HttpResponse('OK')
+    query_results = Stock.objects.all()
+    return HttpResponse(query_results)
