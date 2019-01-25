@@ -1,3 +1,15 @@
+import os
+import sys
+with open('project_path.txt', 'r') as myfile:
+  data=myfile.read().replace('\n', '')
+  sys.path.append(data)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aktiearbitrage.settings")
+import django
+django.setup()
+
+# your imports, e.g. Django models
+from mainpage.models import Stock, Stock_Info, Stock_Price
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
