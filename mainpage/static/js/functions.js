@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    getListItems("", "");
+    updateSearchResult();
 });
 
 /**
@@ -7,18 +7,20 @@ $(document).ready(function() {
  */
 function renderListItems(stockList) {
     var container = $("#table-body");
+    var html = ""
     for (var key in stockList) {
         // check if the property/key is defined in the object itself, not in parent
         if (stockList.hasOwnProperty(key)) {        
-            var itemdiv = "<tr> \
-                    <td class=\"name\">" + key + "</td> \
-                    <td class=\"type\">" + stockList[key]['type1'].type + ": " + stockList[key]['type1'].latest_price + "</td> \
-                    <td class=\"type\">" + stockList[key]['type2'].type + ": " + stockList[key]['type2'].latest_price + "</td> \
-                    <td class=\"spread\">" + stockList[key].spread + "%</td> \
+            var itemdiv = "<tr class=\"table-row\"> \
+                    <td class=\"name column1\">" + key + "</td> \
+                    <td class=\"type column2\">" + stockList[key]['type1'].latest_price + "</td> \
+                    <td class=\"type column3\">" + stockList[key]['type2'].latest_price + "</td> \
+                    <td class=\"spread column4\">" + stockList[key].spread + "%</td> \
                     </tr>"
-            container.append(itemdiv);
+            html += itemdiv;
         }
     }
+    container.html(html);
 }
 
 /**

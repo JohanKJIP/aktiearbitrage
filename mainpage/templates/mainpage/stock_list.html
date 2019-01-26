@@ -3,14 +3,14 @@
 {% block content %}
     <input type="text" id="search" name="search" onkeyup="updateSearchResult(this)"/>
     <table id="list-group" style="width:100%">
-        <thead id="table-head">
+        <thead id="table-head" class="table-head">
             <tr>
-                <th>
+                <th class="column1">
                     <a onclick="changeSort('name')">Namn</a>
                 </th>
-                <th></th>
-                <th></th>
-                <th>
+                <th class="column2"><a>Den ena</a></th>
+                <th class="column3"><a>Den andra</a></th>
+                <th class="column4">
                     <a onclick="changeSort('spread')">Spread</a>
                 </th>
             </tr>
