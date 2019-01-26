@@ -6,16 +6,16 @@
         <thead id="table-head">
             <tr>
                 <th>
-                    <a>Namn</a>
+                    <a onclick="changeSort('name')">Namn</a>
                 </th>
                 <th></th>
                 <th></th>
                 <th>
-                    <a>Spread</a>
+                    <a onclick="changeSort('spread')">Spread</a>
                 </th>
             </tr>
         </thead>
-        <tbody id="table-body">
+        <tbody id="table-body" sort="name">
         </tbody>
     </table>
 {% endblock %}

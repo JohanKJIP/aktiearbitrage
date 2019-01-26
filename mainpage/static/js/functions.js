@@ -21,11 +21,32 @@ function renderListItems(stockList) {
     }
 }
 
+function changeSort(type) {
+    var table = $("#table-body");
+    // reverse the type
+    if (type === "name") {
+        if (table.attr("sort") === "name") {
+            table.attr("sort", "-name");
+        } else if (table.attr("sort") === "-name" || (table.attr("sort") === "spread" || table.attr("sort") === "-spread")) {
+            table.attr("sort", "name");
+        }
+    } 
+    if (type === "spread") {
+        if (table.attr("sort") === "spread") {
+            table.attr("sort", "-spread");
+        } else if (table.attr("sort") === "-spread" || (table.attr("sort") === "name" || table.attr("sort") === "-name")) {
+            table.attr("sort", "spread");
+        }
+    } 
+    updateSearchResult();
+}
+
 /**
  * Retrieve stocks from database, based on query and sorting method.
  */
 function getListItems(query, sort) {
     console.log("Getting list items")
+    console.log("sort2: " + sort);
     $.ajax({
         url: 'ajax/get_stock_list',
         datatype: 'json',
@@ -43,9 +64,10 @@ function getListItems(query, sort) {
 
 function updateSearchResult() {
     input = $("#search").val();
-    console.log(input);
-    if (input.length > 0) {
-        $("#table-body").empty();
-        getListItems(input, "");
-    }
+    table = $("#table-body");
+    // either sort by name or spread
+    sort = table.attr("sort");
+    console.log("Sort: " + sort);
+    $("#table-body").empty();
+    getListItems(input, sort);
 }

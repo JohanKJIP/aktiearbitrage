@@ -4,7 +4,8 @@ from datetime import datetime
 # Create your models here.
 class Stock(models.Model):
     name = models.CharField(max_length=30)
-    latest_spread = models.FloatField(default=0)
+    ticker = models.CharField(max_length=10, default="")
+    spread = models.FloatField(default=0)
 
     def __str__(self):
         return self.name

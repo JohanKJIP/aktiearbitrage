@@ -91,7 +91,7 @@ def fetch_prices(wks, rows):
 
         # update latest stock spread 
         stock = Stock.objects.get(name=name)
-        stock.latest_spread = spread
+        stock.spread = spread
         stock.save()
 
         stock_info = Stock_Info.objects.filter(stock=stock)

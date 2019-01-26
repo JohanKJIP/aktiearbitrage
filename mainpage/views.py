@@ -6,18 +6,24 @@ from django.http import JsonResponse
 
 # Main view
 def home(request):
-    # query database
-    # 
     return render(request, 'mainpage/stock_list.html')
 
 def get_stock_list(request):
     query = request.GET['query']
-    #sort = request.GET['sort']
-    stock_list = Stock.objects.filter(name__contains=query)
+    sort = request.GET['sort']
+    print("sort: " + sort)
+    # default to alphabetical sort
+    if sort != 'name' and sort != '-name' and sort != 'spread' and sort != '-spread':
+        sort = 'name'
+        print('DEFAULTING')
+    print(sort)
+    stock_list = Stock.objects.filter(name__contains=query).order_by(sort)
+
+    # Fetch data from database and put into serializable dstructure
     data = {}
     for stock in stock_list:
         inner_data = {}
-        inner_data['spread'] = stock.latest_spread
+        inner_data['spread'] = stock.spread
 
         stock_info = Stock_Info.objects.filter(stock=stock)
         type1 = stock_info[0]
@@ -30,5 +36,8 @@ def get_stock_list(request):
     return JsonResponse(data)
 
 def send(request):
+    """ 
+    This is a debug view.
+    """
     query_results = Stock.objects.all()
     return HttpResponse(query_results)
