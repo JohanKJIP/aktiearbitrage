@@ -11,12 +11,10 @@ def home(request):
 def get_stock_list(request):
     query = request.GET['query']
     sort = request.GET['sort']
-    print("sort: " + sort)
+
     # default to alphabetical sort
     if sort != 'name' and sort != '-name' and sort != 'spread' and sort != '-spread':
         sort = 'name'
-        print('DEFAULTING')
-    print(sort)
     stock_list = Stock.objects.filter(name__contains=query).order_by(sort)
 
     # Fetch data from database and put into serializable dstructure

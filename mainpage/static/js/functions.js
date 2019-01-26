@@ -21,6 +21,9 @@ function renderListItems(stockList) {
     }
 }
 
+/**
+ * Function that changes the sorting order of the list (table).
+ */
 function changeSort(type) {
     var table = $("#table-body");
     // reverse the type
@@ -45,8 +48,6 @@ function changeSort(type) {
  * Retrieve stocks from database, based on query and sorting method.
  */
 function getListItems(query, sort) {
-    console.log("Getting list items")
-    console.log("sort2: " + sort);
     $.ajax({
         url: 'ajax/get_stock_list',
         datatype: 'json',
@@ -56,7 +57,6 @@ function getListItems(query, sort) {
         },
         type: 'GET',
         success: function(data) {
-            console.log("Success!")
             renderListItems(data);
         }
     });
@@ -67,7 +67,6 @@ function updateSearchResult() {
     table = $("#table-body");
     // either sort by name or spread
     sort = table.attr("sort");
-    console.log("Sort: " + sort);
     $("#table-body").empty();
     getListItems(input, sort);
 }
