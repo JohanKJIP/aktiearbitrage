@@ -2,5 +2,20 @@
 
 {% block content %}
     <input type="text" id="search" name="search" onkeyup="updateSearchResult(this)"/>
-    <div id="list-group"></div>
+    <table id="list-group" style="width:100%">
+        <thead id="table-head">
+            <tr>
+                <th>
+                    <a>Namn</a>
+                </th>
+                <th></th>
+                <th></th>
+                <th>
+                    <a>Spread</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
 {% endblock %}

@@ -6,16 +6,16 @@ $(document).ready(function() {
  * Function iterate and append list item.
  */
 function renderListItems(stockList) {
-    var container = $("#list-group");
+    var container = $("#table-body");
     for (var key in stockList) {
         // check if the property/key is defined in the object itself, not in parent
         if (stockList.hasOwnProperty(key)) {        
-            var itemdiv = "<div class=\"list-group-item align-items-center\"> \
-                    <p class=\"name\">" + key + "</p> \
-                    <p class=\"type\">" + stockList[key]['type1'].type + ": " + stockList[key]['type1'].latest_price + "</p> \
-                    <p class=\"type\">" + stockList[key]['type2'].type + ": " + stockList[key]['type2'].latest_price + "</p> \
-                    <p class=\"spread\">" + stockList[key].spread + "%</p> \
-                    </div>"
+            var itemdiv = "<tr> \
+                    <td class=\"name\">" + key + "</td> \
+                    <td class=\"type\">" + stockList[key]['type1'].type + ": " + stockList[key]['type1'].latest_price + "</td> \
+                    <td class=\"type\">" + stockList[key]['type2'].type + ": " + stockList[key]['type2'].latest_price + "</td> \
+                    <td class=\"spread\">" + stockList[key].spread + "%</td> \
+                    </tr>"
             container.append(itemdiv);
         }
     }
@@ -45,7 +45,7 @@ function updateSearchResult() {
     input = $("#search").val();
     console.log(input);
     if (input.length > 0) {
-        $("#list-group").empty();
+        $("#table-body").empty();
         getListItems(input, "");
     }
 }
