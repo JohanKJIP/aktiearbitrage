@@ -14,7 +14,7 @@ function renderListItems(stockList) {
                     <p class=\"name\">" + key + "</p> \
                     <p class=\"type\">" + stockList[key]['type1'].type + ": " + stockList[key]['type1'].latest_price + "</p> \
                     <p class=\"type\">" + stockList[key]['type2'].type + ": " + stockList[key]['type2'].latest_price + "</p> \
-                    <p class=\"number\">" + stockList[key].spread + "</p> \
+                    <p class=\"spread\">" + stockList[key].spread + "%</p> \
                     </div>"
             container.append(itemdiv);
         }
