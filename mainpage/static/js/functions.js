@@ -9,9 +9,12 @@ function renderListItems(stockList) {
     var container = $("#list-group");
     for (var key in stockList) {
         // check if the property/key is defined in the object itself, not in parent
-        if (stockList.hasOwnProperty(key)) {           
+        if (stockList.hasOwnProperty(key)) {        
             var itemdiv = "<div class=\"list-group-item align-items-center\"> \
                     <p class=\"name\">" + key + "</p> \
+                    <p class=\"type\">" + stockList[key]['type1'].type + ": " + stockList[key]['type1'].latest_price + "</p> \
+                    <p class=\"type\">" + stockList[key]['type2'].type + ": " + stockList[key]['type2'].latest_price + "</p> \
+                    <p class=\"number\">" + stockList[key].spread + "</p> \
                     </div>"
             container.append(itemdiv);
         }

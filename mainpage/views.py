@@ -16,7 +16,17 @@ def get_stock_list(request):
     stock_list = Stock.objects.filter(name__contains=query)
     data = {}
     for stock in stock_list:
-        data[stock.name] = "test"
+        inner_data = {}
+        inner_data['spread'] = stock.latest_spread
+
+        stock_info = Stock_Info.objects.filter(stock=stock)
+        type1 = stock_info[0]
+        type2 = stock_info[1]
+
+        inner_data['type1'] = {'type':type1.stock_type, 'latest_price':type1.latest_price}
+        inner_data['type2'] = {'type':type2.stock_type, 'latest_price':type2.latest_price}
+
+        data[stock.name] = inner_data
     return JsonResponse(data)
 
 def send(request):
