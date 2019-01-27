@@ -51,26 +51,9 @@ TABLE */
     background-color: rgb(228, 228, 228);
 }
 
-table {
-    border-collapse: separate;
-    border-width: 1px;
-    border-color: #6c7ae0;
-    margin-bottom: 50px;
-}
-
-thead {
-    border-radius: 10px 0 0 10px;
-}
-
 td {
     padding-top: 5px;
     padding-bottom: 5px;  
-}
-
-table.floatThead-table {
-    border-top: none;
-    border-bottom: none;
-    background-color: #fff;
 }
 
 /* //////////////////////////////
@@ -90,5 +73,5 @@ a {
 }
 
 .content-group {
-    margin-top: 20px;
+    margin-top: 80px;
 }

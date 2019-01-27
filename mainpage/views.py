@@ -37,6 +37,12 @@ def stock_page(request, name):
     data = {'name':name}
     return render(request, 'mainpage/stock_detail.html', data)
 
+def about(request):
+    return render(request, 'mainpage/about.html')
+
+def contact(request):
+    return render(request, 'mainpage/contact.html')
+
 def send(request):
     """ 
     This is a debug view.
