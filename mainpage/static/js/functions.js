@@ -1,5 +1,9 @@
 $(document).ready(function() {
-    updateSearchResult();
+    // Initial list load when entering page
+    var page = window.location.pathname;
+    if(page == '/' || page == '/default.aspx'){
+        updateSearchResult();
+    }
 
     /**
      * Redirect user on table row click.

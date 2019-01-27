@@ -34,7 +34,8 @@ def get_stock_list(request):
     return JsonResponse(data)
 
 def stock_page(request, name):
-    return HttpResponse(name)
+    data = {'name':name}
+    return render(request, 'mainpage/stock_detail.html', data)
 
 def send(request):
     """ 

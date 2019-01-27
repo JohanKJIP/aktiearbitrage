@@ -12,9 +12,25 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
     </head>
     <body>
-        <h1 class="text-center">
-            <a href="/">Aktiearbitrage</a>
-        </h1>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Aktiearbitrage</a>
+              </div>
+              <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">Hem</a></li>
+                  <li><a href="/about">Om</a></li>
+                  <li><a href="/contact">Kontakt</a></li>
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+        </div>
         <div class="content container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">

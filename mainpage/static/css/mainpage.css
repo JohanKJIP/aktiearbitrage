@@ -67,6 +67,12 @@ td {
     padding-bottom: 5px;  
 }
 
+table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #fff;
+}
+
 /* //////////////////////////////
 OTHER */ 
 
@@ -81,4 +87,8 @@ a {
 
 .text-center a {
     color: #6c7ae0;
+}
+
+.content-group {
+    margin-top: 20px;
 }
