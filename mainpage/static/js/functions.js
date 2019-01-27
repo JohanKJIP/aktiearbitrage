@@ -1,5 +1,14 @@
 $(document).ready(function() {
     updateSearchResult();
+
+    /**
+     * Redirect user on table row click.
+     */
+    $(document).on("click", ".table-row", function() {
+        var stock = $(this).find(".name").text();
+        stock = stock.replace(" ", "-");
+        window.location.href = '/stocks/' + stock;
+    })
 });
 
 /**
@@ -69,6 +78,5 @@ function updateSearchResult() {
     table = $("#table-body");
     // either sort by name or spread
     sort = table.attr("sort");
-    $("#table-body").empty();
     getListItems(input, sort);
 }

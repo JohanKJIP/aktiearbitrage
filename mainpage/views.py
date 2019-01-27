@@ -33,6 +33,9 @@ def get_stock_list(request):
         data[stock.name] = inner_data
     return JsonResponse(data)
 
+def stock_page(request, name):
+    return HttpResponse(name)
+
 def send(request):
     """ 
     This is a debug view.
