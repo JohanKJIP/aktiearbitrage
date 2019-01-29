@@ -40,9 +40,6 @@ def stock_page(request, name):
 def about(request):
     return render(request, 'mainpage/about.html')
 
-def contact(request):
-    return render(request, 'mainpage/contact.html')
-
 def send(request):
     """ 
     This is a debug view.

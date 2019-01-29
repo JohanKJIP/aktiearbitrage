@@ -16,7 +16,7 @@ TABLE */
     color: #fff;
     line-height: 1.4;
 
-    background-color: #6c7ae0;
+    background-color: #525252;
 }
 
 .table-head {
@@ -48,6 +48,7 @@ TABLE */
 }
 
 .table-row:hover {
+    cursor: pointer;
     background-color: rgb(228, 228, 228);
 }
 
@@ -60,7 +61,10 @@ td {
 OTHER */ 
 
 #search {
-    width: 100%;
+    width: 40%;
+    height: 30px;
+    position: relative;
+    top: 10px;
 }
 
 a {
@@ -74,4 +78,35 @@ a {
 
 .content-group {
     margin-top: 80px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.footer {
+    background-color: rgb(54, 54, 54);
+    text-align: center;
+    color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+}
+
+hr.white {
+    color: white;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
 }

@@ -1,17 +1,16 @@
 {% extends "mainpage/base.html" %}
 
 {% block content %}
-    <input type="text" id="search" name="search" onkeyup="updateSearchResult(this)"/>
     <table id="list-group" class="content-group table" style="width:100%">
         <thead id="table-head" class="table-head sticky-header">
             <tr>
                 <th class="column1">
-                    <a onclick="changeSort('name')">Namn</a>
+                    <a onclick="changeSort('name')" class="clickable">Namn</a>
                 </th>
                 <th class="column2"><a>Den ena</a></th>
                 <th class="column3"><a>Den andra</a></th>
                 <th class="column4">
-                    <a onclick="changeSort('spread')">Spread</a>
+                    <a onclick="changeSort('spread')" class="clickable">Spread</a>
                 </th>
             </tr>
         </thead>
