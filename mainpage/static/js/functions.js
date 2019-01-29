@@ -187,7 +187,9 @@ function getListItems(query, sort) {
 }
 
 function updateSearchResult() {
+    var page = window.location.pathname;
     if(page == '/' || page == '/default.aspx'){
+        console.log("here");
         input = $("#search").val();
         table = $("#table-body");
         // either sort by name or spread
