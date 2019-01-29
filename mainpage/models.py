@@ -3,8 +3,8 @@ from datetime import datetime
 
 # Create your models here.
 class Stock(models.Model):
+    slug = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
-    ticker = models.CharField(max_length=10, default="")
     spread = models.FloatField(default=0)
 
     def __str__(self):

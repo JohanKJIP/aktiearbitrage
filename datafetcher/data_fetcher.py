@@ -30,7 +30,7 @@ def add_stocks(wks, rows):
 
         # add name to stock
         print('Adding: ' + values_list[0])
-        stock_entry = Stock(name=values_list[0])
+        stock_entry = Stock(name=values_list[0], slug=values_list[6])
         stock_entry.save()
 
         # add types to stock_info

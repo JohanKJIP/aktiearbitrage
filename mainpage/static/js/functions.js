@@ -9,8 +9,8 @@ $(document).ready(function() {
      * Redirect user on table row click.
      */
     $(document).on("click", ".table-row", function() {
-        var stock = $(this).find(".name").text();
-        stock = stock.replace(" ", "-");
+        var stock = $(this).find(".name").attr("slug");
+        console.log(stock);
         window.location.href = '/stocks/' + stock;
     })
 });
@@ -25,7 +25,7 @@ function renderListItems(stockList) {
         // check if the property/key is defined in the object itself, not in parent
         if (stockList.hasOwnProperty(key)) {        
             var itemdiv = "<tr class=\"table-row\"> \
-                    <td class=\"name column1\">" + key + "</td> \
+                    <td class=\"name column1\" slug=\"" + key + "\">" + stockList[key].name + "</td> \
                     <td class=\"type column2\">" + stockList[key]['type1'].latest_price + "</td> \
                     <td class=\"type column3\">" + stockList[key]['type2'].latest_price + "</td> \
                     <td class=\"spread column4\">" + stockList[key].spread + "%</td> \
