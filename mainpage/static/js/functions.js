@@ -16,6 +16,10 @@ $(document).ready(function() {
     })
 });
 
+/**
+ * Method to load stock details on stock page.
+ * Retrieves data from database via GET.
+ */
 function loadStockDetails() {
     var stockName = $("#stock-name").text();
     $.ajax({
@@ -31,6 +35,9 @@ function loadStockDetails() {
     });
 }
 
+/**
+ * Function to load the graph from database data.
+ */
 function loadGraph(stockName, data) {
     // get request for data
     var ctx = $("#stock-chart");
@@ -131,7 +138,11 @@ function renderListItems(stockList) {
             html += itemdiv;
         }
     }
-    container.html(html);
+    if (!(Object.keys(stockList).length === 0)) {
+        container.html(html);
+    } else {
+        container.html("<p class=\"text-center\">Din sökning gav inget resultat...</p>")
+    }
 }
 
 /**
