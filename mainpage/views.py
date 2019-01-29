@@ -49,3 +49,15 @@ def send(request):
     """
     query_results = Stock.objects.all()
     return HttpResponse(query_results)
+
+def get_stock_data(request):
+    data = {}
+    if request.GET:
+        name = request.GET['name']
+        stock = Stock.objects.get(name=name)
+        stock_infos = Stock_Info.objects.filter(stock=stock)
+        type1 = stock_infos[0]
+        type2 = stock_infos[1]
+        data['type1'] = type1.stock_type
+        data['type2'] = type2.stock_type
+    return JsonResponse(data)
