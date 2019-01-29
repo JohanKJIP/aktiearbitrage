@@ -43,12 +43,12 @@ function loadGraph(stockName, data) {
             datasets: [{ 
                 data: type1Dataset,
                 label: stockName + " " + data['type1'],
-                borderColor: "#3e95cd",
+                borderColor: "#2b8cbe",
                 fill: false
             }, { 
                 data: type2Dataset,
                 label: stockName + " " + data['type2'],
-                borderColor: "#8e5ea2",
+                borderColor: "#e41a1c",
                 fill: false
             }
           ]
@@ -57,6 +57,40 @@ function loadGraph(stockName, data) {
             title: {
                 display: true,
                 text: 'Aktiekurser'
+            },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
+            fill: false,
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        unitStepSize: 1,
+                        displayFormats: {
+                           'day': 'MMM DD'
+                        }
+                    },
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Datum",
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Kurspris",
+                    }
+                }]
             }
         }
     });      
