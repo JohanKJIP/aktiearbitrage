@@ -34,18 +34,19 @@ function loadStockDetails() {
 function loadGraph(stockName, data) {
     // get request for data
     var ctx = $("#stock-chart");
-    console.log("Loading chart...");
+    var type1Dataset = rawDataToDatapoints(data['type1_prices']);
+    var type2Dataset = rawDataToDatapoints(data['type2_prices']);
+
     var lineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
             datasets: [{ 
-                data: [86,114,106,106,107,111,133,221,783,2478],
+                data: type1Dataset,
                 label: stockName + " " + data['type1'],
                 borderColor: "#3e95cd",
                 fill: false
             }, { 
-                data: [282,350,411,502,635,809,947,1402,3700,5267],
+                data: type2Dataset,
                 label: stockName + " " + data['type2'],
                 borderColor: "#8e5ea2",
                 fill: false
@@ -59,6 +60,23 @@ function loadGraph(stockName, data) {
             }
         }
     });      
+}
+
+/**
+ * Function to turn raw db data into datapoints for chart.js
+ * @param {*} data 
+ */
+function rawDataToDatapoints(data) {
+    var datapoints = [];
+    for (let i = 0; i < data.length; i++) {
+        console.log("INH HERE");
+        const datapoint = data[i];
+        var price = datapoint.stock_price;
+        var date = datapoint.date;
+        datapoints.push({x: date, y:price});
+    }
+    console.log(data);
+    return datapoints;
 }
 
 /**

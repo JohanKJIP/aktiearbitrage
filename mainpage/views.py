@@ -45,19 +45,44 @@ def about(request):
 
 def send(request):
     """ 
-    This is a debug view.
+    This is a dev view.
     """
-    query_results = Stock.objects.all()
-    return HttpResponse(query_results)
+    stock = Stock.objects.get(name="Handelsbanken")
+    stock_info = Stock_Info.objects.filter(stock=stock)
+    type1 = stock_info[0]
+    type2 = stock_info[1]
+
+    a = Stock_Price(stock_info=type1, stock_price=20, date='2019-01-29')
+    a.save()
+    b = Stock_Price(stock_info=type1, stock_price=30, date='2019-01-30')
+    b.save()
+    c = Stock_Price(stock_info=type1, stock_price=50, date='2019-01-31')
+    c.save()
+
+    a = Stock_Price(stock_info=type2, stock_price=100, date='2019-01-29')
+    a.save()
+    b = Stock_Price(stock_info=type2, stock_price=80, date='2019-01-30')
+    b.save()
+    c = Stock_Price(stock_info=type2, stock_price=45, date='2019-01-31')
+    c.save()
+
+    return HttpResponse("Complete")
 
 def get_stock_data(request):
     data = {}
     if request.GET:
         name = request.GET['name']
         stock = Stock.objects.get(name=name)
+        # get the different types e.g. A, B
         stock_infos = Stock_Info.objects.filter(stock=stock)
         type1 = stock_infos[0]
         type2 = stock_infos[1]
         data['type1'] = type1.stock_type
         data['type2'] = type2.stock_type
+
+        # get prices for the two types
+        type1_prices = Stock_Price.objects.filter(stock_info=type1)
+        type2_prices = Stock_Price.objects.filter(stock_info=type2)
+        data['type1_prices'] = list(type1_prices.values())
+        data['type2_prices'] = list(type2_prices.values())
     return JsonResponse(data)
