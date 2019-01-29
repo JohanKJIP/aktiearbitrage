@@ -187,9 +187,13 @@ function getListItems(query, sort) {
 }
 
 function updateSearchResult() {
-    input = $("#search").val();
-    table = $("#table-body");
-    // either sort by name or spread
-    sort = table.attr("sort");
-    getListItems(input, sort);
+    if(page == '/' || page == '/default.aspx'){
+        input = $("#search").val();
+        table = $("#table-body");
+        // either sort by name or spread
+        sort = table.attr("sort");
+        getListItems(input, sort);
+    } else {
+        // TODO auto complete search result and go to stock page
+    }
 }
