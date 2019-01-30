@@ -1,16 +1,18 @@
 {% extends "mainpage/base.html" %}
 
 {% block content %}
-    <table id="list-group" class="content-group table" style="width:100%">
+    <table id="list-group" class="content-group table">
+        <h1 id="table-title">Aktielistan</h1>
+        <hr id="table-hr">
         <thead id="table-head" class="table-head sticky-header">
             <tr>
                 <th class="column1">
-                    <a onclick="changeSort('name')" class="clickable">Namn</a>
+                    <a onclick="changeSort('name')" class="clickable">NAMN</a>
                 </th>
-                <th class="column2"><a>Den ena</a></th>
-                <th class="column3"><a>Den andra</a></th>
+                <th class="column2"><a>DEN ENA</a></th>
+                <th class="column3"><a>DEN ANDRA</a></th>
                 <th class="column4">
-                    <a onclick="changeSort('spread')" class="clickable">Spread</a>
+                    <a onclick="changeSort('spread')" class="clickable">SPREAD</a>
                 </th>
             </tr>
         </thead>

@@ -133,7 +133,7 @@ function renderListItems(stockList) {
                     <td class=\"name column1\" slug=\"" + key + "\">" + stockList[key].name + "</td> \
                     <td class=\"type column2\">" + stockList[key]['type1'].latest_price + "</td> \
                     <td class=\"type column3\">" + stockList[key]['type2'].latest_price + "</td> \
-                    <td class=\"spread column4\">" + stockList[key].spread + "%</td> \
+                    <td class=\"spread column4 green\">+" + stockList[key].spread + "%</td> \
                     </tr>"
             html += itemdiv;
         }
@@ -141,7 +141,7 @@ function renderListItems(stockList) {
     if (!(Object.keys(stockList).length === 0)) {
         container.html(html);
     } else {
-        container.html("<p class=\"text-center\">Din sökning gav inget resultat...</p>")
+        container.html("<td class=\"text-center\">Din sökning gav inget resultat...</td>")
     }
 }
 

@@ -12,17 +12,20 @@ TABLE */
     padding-top: 18px;
     padding-bottom: 18px;
     font-family: Lato-Bold;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 150;
     color: #fff;
     line-height: 1.4;
-
-    background-color: #525252;
+    background-color: rgb(67, 131, 226);
 }
 
-.table-head {
-    width: 100%;
-    top: 0;
-    left: 0;
+#table-head {
+    border: 1px solid #ccc;
+    margin: 5% 0;
+    transition: 0.5s;
+    -webkit-border-radius:4px;
+    border-radius: 4px;
+    border-collapse: separate !important;
 }
   
 .column1 {
@@ -57,6 +60,38 @@ td {
     padding-bottom: 5px;  
 }
 
+#list-group {
+    border-radius: 4px;
+    top: 50px;
+}
+
+table {
+    border: 1px solid #ccc;
+    margin: 5% 0;
+    transition: 0.5s;
+    -webkit-border-radius:4px;
+    border-radius: 4px;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+}
+
+#table-title {
+    top: 80px;
+    position: absolute;
+    color: rgb(68, 68, 68);
+}
+
+.green {
+    color: green;
+    font-weight: 200;
+}
+
+#table-hr {
+    position: absolute;
+    top: 75px;
+}
+
 /* //////////////////////////////
 OTHER */ 
 
@@ -78,7 +113,7 @@ a {
 }
 
 .content-group {
-    margin-top: 80px;
+    margin-top: 140px;
 }
 
 .clickable {
@@ -86,15 +121,15 @@ a {
 }
 
 .footer {
-    background-color: rgb(54, 54, 54);
+    background-color: rgb(67, 131, 226);
     text-align: center;
-    color: white;
+    color: rgb(255, 255, 255);
     position: absolute;
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 1rem;
-    height: 50px;
+    padding: 2rem;
+    height: 75px;
 }
 
 hr.white {
@@ -104,8 +139,12 @@ hr.white {
 body {
     position: relative;
     margin: 0;
-    padding-bottom: 6rem;
+    padding-bottom: 10rem;
     min-height: 100%;
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -123,4 +162,17 @@ html {
 
 .navbar-collapse {
     margin: auto;
+}
+
+#color-bar {
+    width: 100%;
+    background-color: rgb(74, 147, 255);
+    height: 5px;
+    top: 0px;
+    position: fixed;
+    z-index: 100;
+}
+
+.navbar {
+    top: 5px;
 }
