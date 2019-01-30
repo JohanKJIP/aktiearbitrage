@@ -96,7 +96,7 @@ table {
 OTHER */ 
 
 #search {
-    width: 40%;
+    width: 50%;
     height: 30px;
     position: relative;
     top: 10px;
@@ -175,4 +175,8 @@ html {
 
 .navbar {
     top: 5px;
+}
+
+#hemom {
+    margin-left: 5%;
 }
