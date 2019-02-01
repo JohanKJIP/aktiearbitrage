@@ -129,7 +129,7 @@ function renderListItems(stockList) {
     for (var key in stockList) {
         // check if the property/key is defined in the object itself, not in parent
         if (stockList.hasOwnProperty(key)) {        
-            var itemdiv = "<tr class=\"table-row\"> \
+            var itemdiv = "<tr class=\"table-row noselect\"> \
                     <td class=\"name column1\" slug=\"" + key + "\">" + stockList[key].name + "</td> \
                     <td class=\"type column2\">" + stockList[key]['type1'].latest_price + "</td> \
                     <td class=\"type column3\">" + stockList[key]['type2'].latest_price + "</td> \
