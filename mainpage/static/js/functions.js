@@ -43,12 +43,15 @@ function loadStockDetails() {
 }
 
 function loadTable(stockName, data) {
-    //$("#stock-text").html(data['stock_text']);
+    // TODO fix calculation
+    var type1Spread = ((parseFloat(data['type1_latest_price'])-parseFloat(data['type2_latest_price']))/parseFloat(data['type1_latest_price']))*100;
+    var type2Spread = ((parseFloat(data['type2_latest_price'])-parseFloat(data['type1_latest_price']))/parseFloat(data['type2_latest_price']))*100;
+    // TODO make method that takes params and returns string...
     // type 1
     var html = "<td>"  + stockName + " "  + data['type1'] + "</td>";
     html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type1_url'] + ">Köp</a></td>";
     html += "<td class=\"table-cell-number\">"  + data['type1_latest_price'] + " kr </td>";
-    html += "<td class=\"table-cell-number\">"  + "-8%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + type1Spread + "%</td>";
     html += "<td class=\"table-cell-number\">"  + "-10%" + "</td>";
     html += "<td class=\"table-cell-number\">"  + "-12%" + "</td>";
     html += "<td class=\"table-cell-number\">"  + data['type1_vol'] + "</td>";
@@ -57,7 +60,7 @@ function loadTable(stockName, data) {
     var html = "<td>"  + stockName + " "  + data['type2'] + "</td>";
     html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type2_url'] + ">Köp</a></td>";
     html += "<td class=\"table-cell-number\">"  + data['type2_latest_price'] + " kr </td>";
-    html += "<td class=\"table-cell-number\">"  + "-8%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + type2Spread + "%</td>";
     html += "<td class=\"table-cell-number\">"  + "-10%" + "</td>";
     html += "<td class=\"table-cell-number\">"  + "-12%" + "</td>";
     html += "<td class=\"table-cell-number\">"  + data['type2_vol'] + "</td>";
