@@ -43,7 +43,7 @@ function loadStockDetails() {
 }
 
 function loadTable(stockName, data) {
-    $("#stock-text").html(data['stock_text']);
+    //$("#stock-text").html(data['stock_text']);
     // type 1
     var html = "<td>"  + stockName + " "  + data['type1'] + "</td>";
     html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type1_url'] + ">Köp</a></td>";
