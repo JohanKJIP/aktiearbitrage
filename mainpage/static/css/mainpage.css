@@ -11,7 +11,7 @@ TABLE */
 .table-head th {
     padding-top: 18px;
     padding-bottom: 18px;
-    font-family: Lato-Bold;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 150;
     color: #fff;
@@ -77,8 +77,7 @@ table {
 }
 
 #table-title {
-    top: 80px;
-    position: absolute;
+    margin-top: 120px;
     color: rgb(68, 68, 68);
 }
 
@@ -113,7 +112,7 @@ a {
 }
 
 .content-group {
-    margin-top: 140px;
+    margin-top: 15px;
 }
 
 .clickable {
@@ -177,6 +176,3 @@ html {
     top: 5px;
 }
 
-#hemom {
-    margin-left: 5%;
-}

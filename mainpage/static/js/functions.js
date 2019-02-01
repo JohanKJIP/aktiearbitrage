@@ -199,3 +199,66 @@ function updateSearchResult() {
         // TODO auto complete search result and go to stock page
     }
 }
+
+/**
+ * Sort the table.
+ */
+function sortTable(column) {
+    var table = $("#list-group > tbody");
+    var i = 1;
+
+    var sortType = $("#list-group").attr("sort-type");
+
+    if(sortType === "ASC") {
+        sortType = "DESC";
+        $("#list-group").attr("sort-type", "DESC");
+    } else if(sortType === "DESC") {
+        sortType = "ASC";
+        $("#list-group").attr("sort-type", "ASC");
+    }  
+
+    var switching = true;
+    while (switching) {
+        switching = false;
+        var rows = table.find("tr");
+        for(i = 0; i < rows.length-1; i++) {
+            console.log(rows[i]);
+            shouldSwitch = false;
+            var t1 = rows[i].getElementsByTagName("td")[column];
+            var t2 = rows[i+1].getElementsByTagName("td")[column]; 
+            var t1value = tableCellFormat(t1);  
+            var t2value = tableCellFormat(t2);
+
+            if (sortType === "ASC"){
+                if (t1value > t2value) {                
+                  shouldSwitch = true;
+                  break;                
+                }                                        
+            }       
+            if (sortType === "DESC") {
+                if (t1value < t2value) {                
+                  shouldSwitch = true;
+                  break;                
+                }                    
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
+}
+
+/**
+ * Function takes a cell value and returns int or string in lowercase
+ * depending on the input.
+ * @param {string} cell 
+ */
+function tableCellFormat(cell) {
+    if (!Object.is(parseInt(cell.innerHTML), NaN)) {
+        return parseInt(cell.innerHTML);
+    }
+    if(typeof cell.innerHTML === "string") {
+        return cell.innerHTML.toLowerCase();
+    }    
+}
