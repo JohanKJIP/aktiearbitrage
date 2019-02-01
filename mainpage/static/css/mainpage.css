@@ -165,7 +165,7 @@ html {
     margin-top: 20px;
 }
 
-#table-title, #stock-name {
+#table-title, #stock-name, .margintop100 {
     margin-top: 100px;
 }
 

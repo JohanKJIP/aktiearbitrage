@@ -180,6 +180,21 @@ function updateSearchResult() {
 }
 
 /**
+ * When hamburger menu pressed remove fixed attribute to navbar
+ * since it covers large portion of the screen.
+ */
+function moveTable() {
+    var expanded = $("#bar").attr("aria-expanded");
+    if (expanded === 'false' || expanded === undefined) {
+        $("#table-title").css("margin-top", "0px");
+        $("#navbar-parent").removeClass("navbar-fixed-top");
+    } else if (expanded === 'true') {
+        $("#table-title").css("margin-top", "100px");
+        $("#navbar-parent").addClass("navbar-fixed-top");
+    }   
+}
+ 
+/**
  * Sort the table.
  */
 function sortTable(column) {
