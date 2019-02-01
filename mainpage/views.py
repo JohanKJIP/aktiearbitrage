@@ -73,12 +73,19 @@ def get_stock_data(request):
     if request.GET:
         name = request.GET['name']
         stock = Stock.objects.get(name=name)
+        data['stock_text'] = stock.info
         # get the different types e.g. A, B
         stock_infos = Stock_Info.objects.filter(stock=stock)
         type1 = stock_infos[0]
         type2 = stock_infos[1]
         data['type1'] = type1.stock_type
         data['type2'] = type2.stock_type
+        data['type1_url'] = type1.url
+        data['type2_url'] = type2.url
+        data['type1_vol'] = type1.volume
+        data['type2_vol'] = type2.volume
+        data['type1_latest_price'] = type1.latest_price
+        data['type2_latest_price'] = type2.latest_price
 
         # get prices for the two types
         type1_prices = Stock_Price.objects.filter(stock_info=type1)

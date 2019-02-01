@@ -6,7 +6,7 @@
         <hr>
         <canvas id="stock-chart" width="50%"></canvas>
         <hr>
-        <p>
+        <p id="stock-text">
             Handelsbanken är en fullsortimentsbank för både privat- och företagskunder med rikstäckande kontorsnät i Sverige, Storbritannien, Danmark, Finland, Norge och Nederländerna. Handelsbanken har över 800 kontor i dessa länder som man betraktar som sina hemmamarknader. Handelsbanken har verksamhet i fler än 20 länder.
         </p>
         <table id="stock-info-table">
@@ -14,29 +14,13 @@
                 <th>Aktie</th>
                 <th></th>
                 <th class="table-cell-number">Pris</th>
-                <th class="table-cell-number">1w</th>
+                <th class="table-cell-number">Nu</th>
+                <th class="table-cell-number">1v</th>
                 <th class="table-cell-number">1m</th>
-                <th class="table-cell-number">3m</th>
                 <th class="table-cell-number">Volym</th>
             </tr>
-            <tr>
-                <td>Handelsbanken A</td>
-                <td class="button noselect clickable">Köp</td>
-                <td class="table-cell-number">255kr</td>
-                <td class="table-cell-number">-8%</td>
-                <td class="table-cell-number">-10%</td>
-                <td class="table-cell-number">-20%</td>
-                <td class="table-cell-number">2330303</td>
-            </tr>
-            <tr>
-                <td>Handelsbanken B</td>
-                <td class="button noselect clickable">Köp</td>
-                <td class="table-cell-number">230kr</td>
-                <td class="table-cell-number">+8%</td>
-                <td class="table-cell-number">+10%</td>
-                <td class="table-cell-number">+20%</td>
-                <td class="table-cell-number">20121</td>
-            </tr>
+            <tr id="type1-info"></tr>
+            <tr id="type2-info"></tr>
         </table> 
     </div>
 {% endblock %}

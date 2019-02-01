@@ -6,6 +6,7 @@ class Stock(models.Model):
     slug = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
     spread = models.FloatField(default=0)
+    info = models.TextField(default="")
 
     def __str__(self):
         return self.name
@@ -13,7 +14,9 @@ class Stock(models.Model):
 class Stock_Info(models.Model):
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     stock_type = models.CharField(max_length=1, default="")
-    latest_price = models.IntegerField(null=True)
+    latest_price = models.FloatField(null=True)
+    url = models.CharField(max_length=120, default="")
+    volume = models.IntegerField(default=0)
 
     def __str__(self):
         return self.stock_type

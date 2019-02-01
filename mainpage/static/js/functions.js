@@ -35,9 +35,33 @@ function loadStockDetails() {
         },
         type: 'GET',
         success: function(data) {
+            console.log(data);
             loadGraph(stockName, data);
+            loadTable(stockName, data);
         }
     });
+}
+
+function loadTable(stockName, data) {
+    $("#stock-text").html(data['stock_text']);
+    // type 1
+    var html = "<td>"  + stockName + " "  + data['type1'] + "</td>";
+    html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type1_url'] + ">Köp</a></td>";
+    html += "<td class=\"table-cell-number\">"  + data['type1_latest_price'] + " kr </td>";
+    html += "<td class=\"table-cell-number\">"  + "-8%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + "-10%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + "-12%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + data['type1_vol'] + "</td>";
+    $("#type1-info").html(html);
+    //type 2
+    var html = "<td>"  + stockName + " "  + data['type2'] + "</td>";
+    html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type2_url'] + ">Köp</a></td>";
+    html += "<td class=\"table-cell-number\">"  + data['type2_latest_price'] + " kr </td>";
+    html += "<td class=\"table-cell-number\">"  + "-8%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + "-10%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + "-12%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + data['type2_vol'] + "</td>";
+    $("#type2-info").html(html);
 }
 
 /**
