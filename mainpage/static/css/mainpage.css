@@ -77,7 +77,6 @@ table {
 }
 
 #table-title {
-    margin-top: 120px;
     color: rgb(68, 68, 68);
 }
 
@@ -163,6 +162,30 @@ html {
 }
 
 #stock-name {
+    margin-top: 20px;
+}
+
+#table-title, #stock-name {
     margin-top: 100px;
+}
+
+/*
+SEARCH BAR
+*/ 
+.searchTerm {
+    width: 50%;
+    border: 1px solid rgb(74, 147, 255);
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+.searchTerm:focus{
+    color: rgb(74, 147, 255);
+}
+
+.navbar {
+    margin-top: 5px;
 }
 

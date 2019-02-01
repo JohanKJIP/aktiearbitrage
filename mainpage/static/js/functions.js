@@ -100,7 +100,7 @@ function loadGraph(stockName, data) {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: "Kurspris",
+                        labelString: "Kurspris (kr)",
                     }
                 }]
             }
