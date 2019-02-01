@@ -94,14 +94,6 @@ table {
 /* //////////////////////////////
 OTHER */ 
 
-#search {
-    width: 50%;
-    height: 30px;
-    position: relative;
-    top: 10px;
-    margin: auto;
-}
-
 a {
     color: #fff;
     text-decoration: none;
@@ -151,18 +143,6 @@ html {
     box-sizing: border-box;
 }
 
-.navbar-nav {
-    width: 10%;
-}
-
-.navbar-nav li {
-    width: 50%;
-}
-
-.navbar-collapse {
-    margin: auto;
-}
-
 #color-bar {
     width: 100%;
     background-color: rgb(74, 147, 255);
@@ -170,10 +150,6 @@ html {
     top: 0px;
     position: fixed;
     z-index: 100;
-}
-
-.navbar {
-    top: 5px;
 }
 
 .noselect {
@@ -184,5 +160,9 @@ html {
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
+}
+
+#stock-name {
+    margin-top: 100px;
 }
 

@@ -14,6 +14,11 @@ $(document).ready(function() {
         var stock = $(this).find(".name").attr("slug");
         window.location.href = '/stocks/' + stock;
     })
+
+    $(document).ready(function() {
+        $('li.active').removeClass('active');
+        $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+    });
 });
 
 /**
@@ -110,13 +115,11 @@ function loadGraph(stockName, data) {
 function rawDataToDatapoints(data) {
     var datapoints = [];
     for (let i = 0; i < data.length; i++) {
-        console.log("INH HERE");
         const datapoint = data[i];
         var price = datapoint.stock_price;
         var date = datapoint.date;
         datapoints.push({x: date, y:price});
     }
-    console.log(data);
     return datapoints;
 }
 
@@ -146,29 +149,6 @@ function renderListItems(stockList) {
 }
 
 /**
- * Function that changes the sorting order of the list (table).
- */
-function changeSort(type) {
-    var table = $("#table-body");
-    // reverse the type
-    if (type === "name") {
-        if (table.attr("sort") === "name") {
-            table.attr("sort", "-name");
-        } else if (table.attr("sort") === "-name" || (table.attr("sort") === "spread" || table.attr("sort") === "-spread")) {
-            table.attr("sort", "name");
-        }
-    } 
-    if (type === "spread") {
-        if (table.attr("sort") === "spread") {
-            table.attr("sort", "-spread");
-        } else if (table.attr("sort") === "-spread" || (table.attr("sort") === "name" || table.attr("sort") === "-name")) {
-            table.attr("sort", "spread");
-        }
-    } 
-    updateSearchResult();
-}
-
-/**
  * Retrieve stocks from database, based on query and sorting method.
  */
 function getListItems(query, sort) {
@@ -188,8 +168,7 @@ function getListItems(query, sort) {
 
 function updateSearchResult() {
     var page = window.location.pathname;
-    if(page == '/' || page == '/default.aspx'){
-        console.log("here");
+    if(page == '/' || page == '/default.aspx') {
         input = $("#search").val();
         table = $("#table-body");
         // either sort by name or spread
@@ -222,7 +201,6 @@ function sortTable(column) {
         switching = false;
         var rows = table.find("tr");
         for(i = 0; i < rows.length-1; i++) {
-            console.log(rows[i]);
             shouldSwitch = false;
             var t1 = rows[i].getElementsByTagName("td")[column];
             var t2 = rows[i+1].getElementsByTagName("td")[column]; 
