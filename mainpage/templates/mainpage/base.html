@@ -39,6 +39,15 @@
                             <input id="search" type="text" class="form-control searchTerm" placeholder="Sök..." autocomplete="off" onkeyup="updateSearchResult()">
                         </div>
                     </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'logout' %}">Logga ut</a>
+                            {% else %}
+                                <a href="{% url 'login' %}">Logga in</a>
+                            {% endif %}
+                        </li>
+                    </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
