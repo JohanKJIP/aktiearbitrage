@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from mainpage.models import Stock, Stock_Info, Stock_Price
 import json
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 # Main view
 def home(request):
@@ -96,3 +97,7 @@ def get_stock_data(request):
         data['type1_prices'] = list(type1_prices.values())
         data['type2_prices'] = list(type2_prices.values())
     return JsonResponse(data)
+
+@login_required(login_url='/accounts/login/')
+def my_page(request):
+    return render(request, 'mainpage/my_page.html')

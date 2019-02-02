@@ -27,7 +27,7 @@ $(document).ready(function() {
  * Loads the list based on user favourites.
  */
 function loadMyList() {
-    $("#my-list-table").html("<p>TODO</p>")
+    $("#my-list-table").html("<a href=\"/\">Din lista är tom, klicka här för att redigera!</a>");
 }
 
 /**
