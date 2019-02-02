@@ -5,6 +5,8 @@ $(document).ready(function() {
         updateSearchResult();
     } else if(page.startsWith('/stocks/')) {
         loadStockDetails();
+    } else if(page.startsWith('/my_list/')) {
+        loadMyList();
     }
 
     /**
@@ -22,6 +24,13 @@ $(document).ready(function() {
 });
 
 /**
+ * Loads the list based on user favourites.
+ */
+function loadMyList() {
+    $("#my-list-table").html("<p>TODO</p>")
+}
+
+/**
  * Method to load stock details on stock page.
  * Retrieves data from database via GET.
  */
@@ -35,36 +44,70 @@ function loadStockDetails() {
         },
         type: 'GET',
         success: function(data) {
-            console.log(data);
             loadGraph(stockName, data);
             loadTable(stockName, data);
         }
     });
 }
 
+/**
+ * Loads the table on detailed stock page.
+ */
 function loadTable(stockName, data) {
-    // TODO fix calculation
-    var type1Spread = ((parseFloat(data['type1_latest_price'])-parseFloat(data['type2_latest_price']))/parseFloat(data['type1_latest_price']))*100;
-    var type2Spread = ((parseFloat(data['type2_latest_price'])-parseFloat(data['type1_latest_price']))/parseFloat(data['type2_latest_price']))*100;
-    // TODO make method that takes params and returns string...
-    // type 1
-    var html = "<td>"  + stockName + " "  + data['type1'] + "</td>";
-    html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type1_url'] + ">Köp</a></td>";
-    html += "<td class=\"table-cell-number\">"  + data['type1_latest_price'] + " kr </td>";
-    html += "<td class=\"table-cell-number\">"  + type1Spread + "%</td>";
-    html += "<td class=\"table-cell-number\">"  + "-10%" + "</td>";
-    html += "<td class=\"table-cell-number\">"  + "-12%" + "</td>";
-    html += "<td class=\"table-cell-number\">"  + data['type1_vol'] + "</td>";
+    var type1Spread = getSpreadString(parseFloat(data['type1_latest_price']), parseFloat(data['type2_latest_price']));
+    var type2Spread = getSpreadString(parseFloat(data['type2_latest_price']), parseFloat(data['type1_latest_price']));
+
+    html = generateTable(stockName, data, 'type1', type1Spread);
     $("#type1-info").html(html);
-    //type 2
-    var html = "<td>"  + stockName + " "  + data['type2'] + "</td>";
-    html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data['type2_url'] + ">Köp</a></td>";
-    html += "<td class=\"table-cell-number\">"  + data['type2_latest_price'] + " kr </td>";
-    html += "<td class=\"table-cell-number\">"  + type2Spread + "%</td>";
-    html += "<td class=\"table-cell-number\">"  + "-10%" + "</td>";
-    html += "<td class=\"table-cell-number\">"  + "-12%" + "</td>";
-    html += "<td class=\"table-cell-number\">"  + data['type2_vol'] + "</td>";
+    html = generateTable(stockName, data, 'type2', type2Spread);
     $("#type2-info").html(html);
+}
+
+/**
+ * Generates the table seen on detailed stock page.
+ * @param {string} stockName 
+ * @param {dictionary} data 
+ * @param {string} type 
+ * @param {float} spread 
+ */
+function generateTable(stockName, data, type, spread) {
+    var html = "<td>"  + stockName + " "  + data[type] + "</td>";
+    html += "<td class=\"noselect clickable\"><a class=\"button\" href=" + data[type + '_url'] + ">Köp</a></td>";
+    html += "<td class=\"table-cell-number\">"  + parseFloat(data[type + '_latest_price']).toFixed(2) + " kr </td>";
+    html += "<td class=\"table-cell-number " + positiveOrNegativeClass(spread) + "\">"  + spread + "</td>";
+    html += "<td class=\"table-cell-number " + positiveOrNegativeClass(spread) + "\">"  + "-10%" + "</td>";
+    html += "<td class=\"table-cell-number " + positiveOrNegativeClass(spread) + "\">"  + "-12%" + "</td>";
+    html += "<td class=\"table-cell-number\">"  + data[type + '_vol'] + "</td>";
+    return html;
+}
+
+/**
+ * Used to determine colour of number w/ class and css.
+ */
+function positiveOrNegativeClass(number) {
+    if (typeof number === 'string') {
+        number.replace("%", "");
+        number.replace("+", "");
+        number.replace("-", "");
+        number = parseFloat(number);
+    }
+    if(number >= 0) return "positive";
+    return "negative";
+}
+
+/**
+ * Calculate spread from two prices.
+ * price1 is after, price2 is before, e.g. 10 -> 9 = -10%, 9 -> 10 = +11%
+ * @param {float} price1 
+ * @param {float} price2 
+ */
+function getSpreadString(price1, price2) {
+    var spread = (((price1-price2)/price2)*100).toFixed(2);
+    if (spread >= 0) {
+        return "+" + spread + "%";
+    } else {
+        return spread + "%"; 
+    }
 }
 
 /**
@@ -163,7 +206,7 @@ function renderListItems(stockList) {
                     <td class=\"name column1\" slug=\"" + key + "\">" + stockList[key].name + "</td> \
                     <td class=\"type column2\">" + stockList[key]['type1'].latest_price + "</td> \
                     <td class=\"type column3\">" + stockList[key]['type2'].latest_price + "</td> \
-                    <td class=\"spread column4 green\">+" + stockList[key].spread + "%</td> \
+                    <td class=\"spread column4 positive\">+" + stockList[key].spread + "%</td> \
                     </tr>"
             html += itemdiv;
         }
@@ -193,6 +236,10 @@ function getListItems(query, sort) {
     });
 }
 
+
+/**
+ * Fix search results, retrieve values from db and populate.
+ */
 function updateSearchResult() {
     var page = window.location.pathname;
     if(page == '/' || page == '/default.aspx') {

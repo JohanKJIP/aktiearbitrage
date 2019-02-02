@@ -80,8 +80,13 @@ table {
     color: rgb(68, 68, 68);
 }
 
-.green {
+.positive {
     color: green;
+    font-weight: 200;
+}
+
+.negative {
+    color: red;
     font-weight: 200;
 }
 
@@ -177,8 +182,6 @@ SEARCH BAR
     border: 1px solid rgb(74, 147, 255);
     padding: 5px;
     border-radius: 5px;
-    outline: none;
-    color: #9DBFAF;
   }
   
 .searchTerm:focus{
@@ -214,4 +217,9 @@ SEARCH BAR
 .button:hover {
     border: 1px solid rgb(81, 136, 76);
     text-decoration: none;
+}
+
+.mini-text {
+    color: grey;
+    font-size: 12px;
 }

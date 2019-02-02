@@ -1,0 +1,23 @@
+{% extends "mainpage/base.html" %}
+
+{% block content %}
+    <div class="content-group margintop100">
+        {% if user.is_authenticated %}
+        <table id="list-group" class="content-group table" sort-type="ASC">
+                <h1 id="table-title">Min lista</h1>
+                <thead id="table-head" class="table-head sticky-header">
+                    <tr>
+                        <th class="column1 clickable noselect" onclick="sortTable(0)">NAMN</th>
+                        <th class="column2 clickable noselect" onclick="sortTable(1)">DEN ENA</th>
+                        <th class="column3 clickable noselect" onclick="sortTable(2)">DEN ANDRA</th>
+                        <th class="column4 clickable noselect" onclick="sortTable(3)">SPREAD</th>
+                    </tr>
+                </thead>
+                <tbody id="my-list-table" sort="name">
+                </tbody>
+        </table>
+        {% else %}
+        <p>Logga in eller gör ett konto för att skapa din egna lista och få notifikationer när du ska köpa och sälja.</p>
+        {% endif %}
+    </div>
+{% endblock %}

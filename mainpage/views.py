@@ -43,6 +43,9 @@ def stock_page(request, name):
 def about(request):
     return render(request, 'mainpage/about.html')
 
+def my_list(request):
+    return render(request, 'mainpage/my_list.html')
+
 def send(request):
     """ 
     This is a dev view.
