@@ -249,3 +249,7 @@ SEARCH BAR
     outline: none;
     background-color: rgb(255, 146, 143);
 }
+
+#success-tag {
+    float: right;
+}

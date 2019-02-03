@@ -1,5 +1,6 @@
 from django.db import models
-from datetime import datetime  
+from datetime import datetime 
+from django.contrib.auth.models import User 
 
 # Create your models here.
 class Stock(models.Model):
@@ -25,3 +26,8 @@ class Stock_Price(models.Model):
     stock_info = models.ForeignKey(Stock_Info, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.now, blank=True)
     stock_price = models.IntegerField()
+
+class UserProfile(models.Model):  
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    minimum_fee = models.FloatField(default=0)
+    variable_fee = models.FloatField(default=0)

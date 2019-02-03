@@ -21,6 +21,8 @@ $(document).ready(function() {
         loadStockDetails();
     } else if(page.startsWith('/my_list/')) {
         loadMyList();
+    } else if(page.startsWith('/my_page/')) {
+        loadMyPage();
     }
 
     /**
@@ -359,7 +361,7 @@ function saveCourtage() {
 
     if (!isNaN(lowestFeeValue) && !isNaN(variableFeeValue)) {
         $.ajax({
-            url: '/my_page/save_courtage',
+            url: '/ajax/save_courtage',
             datatype: 'json',
             data : {
                 lowest_fee: lowestFeeValue,
@@ -367,8 +369,10 @@ function saveCourtage() {
             },
             type: 'POST',
             success: function(data) {
-                console.log("success")
-                console.log(data);
+                $("#success-tag").html("<p>Inställningar sparade</p>")
+            },
+            error: function(data) {
+                $("#success-tag").html("<p>Ett fel uppstod!</p>")
             }
         });
     }
@@ -405,4 +409,25 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+/**
+ * Make necessary loads for the page "my page"
+ */
+function loadMyPage() {
+    getUserProfile().then(function(data) {
+        $("#lowest-fee").val(data['minimum_fee']);
+        $("#variable-fee").val(data['variable_fee']);
+    })
+}
+
+/**
+ * Get the users profile.
+ */
+function getUserProfile() {
+    return $.ajax({
+        url: '/ajax/get_profile',
+        datatype: 'json',
+        type: 'GET'
+    });
 }

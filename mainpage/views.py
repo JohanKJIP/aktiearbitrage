@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainpage.models import Stock, Stock_Info, Stock_Price
+from mainpage.models import Stock, Stock_Info, Stock_Price, UserProfile
+from django.contrib.auth.models import User 
 import json
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+
 
 # Main view
 def home(request):
@@ -72,6 +74,21 @@ def send(request):
 
     return HttpResponse("Complete")
 
+def create_user_profile(request):
+    if request.user.is_authenticated:
+            username = request.user.username
+            user_obj = User.objects.get(username=username)
+            profile = UserProfile(user=user_obj)
+            profile.save()
+
+def get_profile(request):
+    if request.user.is_authenticated:
+            username = request.user.username
+            user_obj = User.objects.get(username=username)
+            profile = UserProfile.objects.get(user=user_obj)
+            return JsonResponse({'minimum_fee': profile.minimum_fee, 'variable_fee': profile.variable_fee})
+    return HttpResponse("error: user not logged in!")
+
 def get_stock_data(request):
     data = {}
     if request.GET:
@@ -104,5 +121,13 @@ def my_page(request):
 
 def save_courtage(request):
     if request.POST:
-        return HttpResponse(request.POST['lowest_fee'] + " " + request.POST['variable_fee'])
+        username = None
+        if request.user.is_authenticated:
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user_profile = UserProfile.objects.get(user=user)
+            user_profile.minimum_fee = request.POST['lowest_fee']
+            user_profile.variable_fee = request.POST['variable_fee']
+            user_profile.save()
+            return HttpResponse("success")
     return HttpResponse("error")
