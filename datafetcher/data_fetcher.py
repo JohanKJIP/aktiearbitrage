@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 with open('project_path.txt', 'r') as myfile:
   data=myfile.read().replace('\n', '')
   sys.path.append(data)
@@ -13,12 +14,12 @@ from mainpage.models import Stock, Stock_Info, Stock_Price
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-def connect():
+def connect(sheet):
     scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
     gc = gspread.authorize(credentials)
-    return gc.open("Aktiearbitrage").sheet1
+    return gc.open("Aktiearbitrage").worksheet(sheet)
 
 def add_stocks(wks, rows):
     """
@@ -109,8 +110,43 @@ def fetch_prices(wks, rows):
         type2.latest_price = price2
         type2.save()
 
+def fetch_historical_prices(wks, rows):
+    time.sleep(1)
+    stocks = wks.row_values(1)
+    print(stocks)
+    test = wks.row_values(2)
+    print(test)
+    test = wks.row_values(4)
+    print(test)
+    for i in range(3,rows):
+        data = wks.row_values(i)
+        for j in range(0, len(stocks), 2):
+            stock_tag = stocks[j].split("_")
+            stock = stock_tag[0]
+            stock_type = stock_tag[1]
+            stock = Stock.objects.get(slug=stock)
+            stock_info = Stock_Info.objects.filter(stock=stock)
+
+            # types are always sorted so we know stock_info[0] is a
+            if (stock_type == 'a'):
+                stock_info = stock_info[0]
+            else:
+                stock_info = stock_info[1]
+
+            # save the data
+            date = data[j]
+            price = data[j+1]
+            print(date)
+            print(price)
+            if (price != ''):
+                stock_price = Stock_price(stock_info=stock_info, date=date, stock_price=price)
+                stock_price.save()
+
+
 if __name__ == "__main__":
-    wks = connect()
-    #fetch_prices(wks, 25)
-    #add_stocks(wks, 25)
+    #wks1 = connect('stocks')
+    #fetch_prices(wks1, 25)
+    #add_stocks(wks1, 25)
+    #wks2 = connect('prices')
+    #fetch_historical_prices(wks2, 35)
 

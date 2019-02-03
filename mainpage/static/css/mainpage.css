@@ -76,6 +76,19 @@ table {
     box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
 }
 
+.border {
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    border-radius: 4px;
+    border-collapse: separate !important;
+    -webkit-border-radius:4px;
+    padding: 15px;
+}
+
+.divider {
+    height: 20px;
+}
+
 #table-title {
     color: rgb(68, 68, 68);
 }
@@ -219,7 +232,20 @@ SEARCH BAR
     text-decoration: none;
 }
 
+.savebutton {
+    height: auto;
+}
+
 .mini-text {
     color: grey;
     font-size: 12px;
+}
+
+.content-group > p:nth-child(2) > a:nth-child(1) {
+    color: #428bca;
+}
+
+.input-error {
+    outline: none;
+    background-color: rgb(255, 146, 143);
 }

@@ -1,4 +1,18 @@
 $(document).ready(function() {
+
+    // Set up ajax.
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
     // Initial list load when entering page
     var page = window.location.pathname;
     if(page == '/' || page == '/default.aspx'){
@@ -27,7 +41,10 @@ $(document).ready(function() {
  * Loads the list based on user favourites.
  */
 function loadMyList() {
-    $("#my-list-table").html("<a href=\"/\">Din lista är tom, klicka här för att redigera!</a>");
+    if (true) {
+        $("#list-group").replaceWith("<p><a href=\"/my_page/\">Din lista är tom, klicka här för att redigera!</a></p>");
+    }
+    //$("#my-list-table").html("<a href=\"/my_page/\">Din lista är tom, klicka här för att redigera!</a>");
 }
 
 /**
@@ -223,7 +240,7 @@ function renderListItems(stockList) {
  */
 function getListItems(query, sort) {
     $.ajax({
-        url: 'ajax/get_stock_list',
+        url: '/ajax/get_stock_list',
         datatype: 'json',
         data : {
             'query': query,
@@ -328,4 +345,64 @@ function tableCellFormat(cell) {
     if(typeof cell.innerHTML === "string") {
         return cell.innerHTML.toLowerCase();
     }    
+}
+
+/**
+ * Function to save fee settings
+ */
+function saveCourtage() {
+    var lowestFee = $("#lowest-fee");
+    var lowestFeeValue = checkFloatInput(lowestFee[0]);
+
+    var variableFee = $("#variable-fee");
+    var variableFeeValue = checkFloatInput(variableFee[0]);
+
+    if (!isNaN(lowestFeeValue) && !isNaN(variableFeeValue)) {
+        $.ajax({
+            url: '/my_page/save_courtage',
+            datatype: 'json',
+            data : {
+                lowest_fee: lowestFeeValue,
+                variable_fee: variableFeeValue
+            },
+            type: 'POST',
+            success: function(data) {
+                console.log("success")
+                console.log(data);
+            }
+        });
+    }
+}
+
+/**
+ * Checks if input is float, takes DOM input element.
+ */
+function checkFloatInput(element) {
+    var elementValue = parseFloat(element.value);
+    if (isNaN(elementValue) && element.value !== "") {
+        element.classList.add("input-error");
+    }  else {
+        element.classList.remove("input-error");
+    }
+    return elementValue;
+}
+
+/**
+ * Get a cookie by name
+ * @param {string} name 
+ */
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

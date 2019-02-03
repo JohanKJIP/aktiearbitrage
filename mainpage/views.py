@@ -101,3 +101,8 @@ def get_stock_data(request):
 @login_required(login_url='/accounts/login/')
 def my_page(request):
     return render(request, 'mainpage/my_page.html')
+
+def save_courtage(request):
+    if request.POST:
+        return HttpResponse(request.POST['lowest_fee'] + " " + request.POST['variable_fee'])
+    return HttpResponse("error")
