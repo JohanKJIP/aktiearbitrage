@@ -383,7 +383,7 @@ function saveCourtage() {
  */
 function checkFloatInput(element) {
     var elementValue = parseFloat(element.value);
-    if (isNaN(elementValue) && element.value !== "") {
+    if (isNaN(elementValue) && element.value !== "" || elementValue<0) {
         element.classList.add("input-error");
     }  else {
         element.classList.remove("input-error");
@@ -422,19 +422,43 @@ function loadMyPage() {
 
         // owned stocks list
         var tbody = $("#my-page-stock-table tbody");
-        // TODO request db data
+        $.ajax({
+            url: '/ajax/get_user_stock_list',
+            datatype: 'json',
+            type: 'GET',
+            success: function(data) {
+                generateTableRows(data);
+            },
+        });
         // TODO generate t-rows
     })
 }
 
 function generateTableRows(data) {
-    console.log(data);
+    var tbody = $("#my-page-stock-table tbody");
+    for (var key in data) {
+        var html = "<tr> <td>" + key + "</td>";
+        html += "<td class=\"table-cell-number\">" + data[key]['amount'] + "</td>";
+        html += "<td class=\"table-cell-number\">" + data[key]['price'] + "</td>";
+        html += "<td><i class=\"fa fa-edit icon clickable\" onclick=\"editStockListItem(this)\"></i></td>";
+        html += "<td><i class=\"fa fa-trash icon clickable\" onclick=\"deleteStockListItem(this)\"></i></td>";
+        html += "</tr>";
+        tbody.append(html);
+    }
 }
 
 function deleteStockListItem(button) {
     if(confirm("Är du säker att du vill ta bort raden?")) {
-        button.parentNode.parentNode.remove();
-        // TODO remove from database
+        var row = button.parentNode.parentNode;
+        var name = row.children[0].innerHTML;
+        row.remove();
+        $.ajax({
+            url: '/ajax/delete_user_list_item/',
+            data:  {
+                name:name
+            },
+            type: 'POST',
+        });
     }
 }
 
@@ -449,10 +473,9 @@ function editStockListItem(button) {
 }
 
 function addStockListItem() {
-    console.log("here");
     var html = "<tr> <td> <input id=\"my-list-stock\" type=\"text\" autocomplete=\"off\" name=\"stock\" onkeyup=\"\" value=\"Handelsbanken A\"> </td>";
-    html += "<td class=\"table-cell-number\"> <input id=\"my-list-amount\" type=\"text\" autocomplete=\"off\" align=\"right\" name=\"stock\" onkeyup=\"\" value=\"0\"> </td>";
-    html += "<td class=\"table-cell-number\"> <input id=\"my-list-price\" type=\"text\" autocomplete=\"off\" align=\"right\" name=\"stock\" onkeyup=\"\" value=\"0\"> </td>";
+    html += "<td class=\"table-cell-number\"> <input id=\"my-list-amount\" type=\"text\" autocomplete=\"off\" align=\"right\" name=\"stock\" onkeyup=\"checkFloatInput(this)\" value=\"0\"> </td>";
+    html += "<td class=\"table-cell-number\"> <input id=\"my-list-price\" type=\"text\" autocomplete=\"off\" align=\"right\" name=\"stock\" onkeyup=\"checkFloatInput(this)\" value=\"0\"> </td>";
     html += "<td><i class=\"fa fa-save icon clickable\" onclick=\"saveStockListItem(this)\"></i></td>";
     html += "<td><i class=\"fa fa-trash icon clickable\" onclick=\"deleteStockListItem(this)\"></i></td>";
     html += "</tr>";
@@ -462,9 +485,31 @@ function addStockListItem() {
 function saveStockListItem(element) {
     var row = element.parentNode.parentNode;
     var tds = row.children;
-    tds[0].children[0].replaceWith(tds[0].children[0].value);
-    tds[1].children[0].replaceWith(tds[1].children[0].value);
-    tds[2].children[0].replaceWith(tds[2].children[0].value);
+    // TODO check input??
+    var stock = tds[0].children[0].value;
+    var amount = tds[1].children[0].value;
+    var price = tds[2].children[0].value;
+    // local change
+    tds[0].children[0].replaceWith(stock);
+    tds[1].children[0].replaceWith(amount);
+    tds[2].children[0].replaceWith(price);
+    // remote db change
+    $.ajax({
+        url: '/ajax/save_stock_list_item/',
+        datatype: 'json',
+        data : {
+            stock: stock,
+            amount: amount,
+            price: price
+        },
+        type: 'POST',
+        success: function(data) {
+            //$("#success-tag").html("<p>Inställningar sparade</p>")
+        },
+        error: function(data) {
+            //$("#success-tag").html("<p>Ett fel uppstod!</p>")
+        }
+    });
 }
 
 /**

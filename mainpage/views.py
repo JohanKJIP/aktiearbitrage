@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainpage.models import Stock, Stock_Info, Stock_Price, UserProfile
+from mainpage.models import Stock, Stock_Info, Stock_Price, UserProfile, User_Stock
 from django.contrib.auth.models import User 
 import json
 from django.http import JsonResponse
@@ -130,4 +130,69 @@ def save_courtage(request):
             user_profile.variable_fee = request.POST['variable_fee']
             user_profile.save()
             return HttpResponse("success")
+        else:
+            return HttpResponse("not authenticated")
     return HttpResponse("error")
+
+def save_stock_list_item(request):
+    if request.POST:
+        username = None
+        if request.user.is_authenticated:
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user_profile = UserProfile.objects.get(user=user)
+
+            # get stock info from name
+            stock_name = request.POST['stock'].split(" ")
+            stock = Stock.objects.get(name=stock_name[0])
+            stock_info = Stock_Info.objects.get(stock_type=stock_name[1], stock=stock)
+
+            stock_amount = request.POST['amount']
+            stock_price = request.POST['price']
+            user_stock = User_Stock(user_profile=user_profile, name=stock_info ,amount=stock_amount, buy_price=stock_price)
+            user_stock.save()
+            return HttpResponse("success")
+        else:
+            return HttpResponse("not authenticated")
+    return HttpResponse("error")
+
+def get_user_stock_list(request):
+    if request.method == 'GET':
+        username = None
+        if request.user.is_authenticated:
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user_profile = UserProfile.objects.get(user=user)
+            user_stock = User_Stock.objects.filter(user_profile=user_profile)
+            data = {}
+            for u_stock in user_stock:
+                stock_info = u_stock.name
+                stock_name = stock_info.stock.name
+                stock_type = stock_info.stock_type
+                amount = u_stock.amount
+                price = u_stock.buy_price
+                data[stock_name + ' ' + stock_type] = {'amount':amount, 'price':price}
+            return JsonResponse(data)
+        else:
+            return HttpResponse("not authenticated")
+    return HttpResponse("error")
+
+def delete_user_list_item(request):
+    """
+    Delete a list item on user my page owned stocks.
+    """
+    if request.method == 'POST':
+        username = None
+        if request.user.is_authenticated:
+            # user info
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user_profile = UserProfile.objects.get(user=user)
+            # stock info
+            stock_name = request.POST['name'].split(" ")[0]
+            stock_type = request.POST['name'].split(" ")[1]
+            stock = Stock.objects.get(name=stock_name)
+            stock_info = Stock_Info.objects.get(stock=stock, stock_type=stock_type)
+            user_stock = User_Stock.objects.get(user_profile=user_profile, name=stock_info)
+            user_stock.delete()
+            return HttpResponse('success')

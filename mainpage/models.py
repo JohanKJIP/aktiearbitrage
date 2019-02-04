@@ -35,4 +35,5 @@ class UserProfile(models.Model):
 class User_Stock(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     name = models.ForeignKey(Stock_Info, on_delete=models.PROTECT)
-    buy_price = models.FloatField()
+    buy_price = models.FloatField(default=0)
+    amount = models.IntegerField(default=0)

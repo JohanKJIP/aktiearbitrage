@@ -13,4 +13,7 @@ urlpatterns = [
     path('ajax/save_courtage', views.save_courtage, name='save_courtage'),
     path('ajax/get_stock_data/', views.get_stock_data, name='get_stock_data'),
     path('ajax/get_profile/', views.get_profile, name='get_profile'),
+    path('ajax/save_stock_list_item/', views.save_stock_list_item, name='save_stock_list_item'),
+    path('ajax/get_user_stock_list/', views.get_user_stock_list, name='get_user_stock_list'),
+    path('ajax/delete_user_list_item/', views.delete_user_list_item, name='delete_user_list_item'),
 ]
