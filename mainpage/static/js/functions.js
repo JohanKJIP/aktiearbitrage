@@ -416,9 +416,55 @@ function getCookie(name) {
  */
 function loadMyPage() {
     getUserProfile().then(function(data) {
+        // fee box
         $("#lowest-fee").val(data['minimum_fee']);
         $("#variable-fee").val(data['variable_fee']);
+
+        // owned stocks list
+        var tbody = $("#my-page-stock-table tbody");
+        // TODO request db data
+        // TODO generate t-rows
     })
+}
+
+function generateTableRows(data) {
+    console.log(data);
+}
+
+function deleteStockListItem(button) {
+    if(confirm("Är du säker att du vill ta bort raden?")) {
+        button.parentNode.parentNode.remove();
+        // TODO remove from database
+    }
+}
+
+function editStockListItem(button) {
+    var trChildren = button.parentNode.parentNode.children;
+    var stock = trChildren[0].innerHTML;
+    var amount = trChildren[1].innerHTML;
+    var price = trChildren[2].innerHTML;
+    console.log(stock);
+    console.log(amount);
+    console.log(price);
+}
+
+function addStockListItem() {
+    console.log("here");
+    var html = "<tr> <td> <input id=\"my-list-stock\" type=\"text\" autocomplete=\"off\" name=\"stock\" onkeyup=\"\" value=\"Handelsbanken A\"> </td>";
+    html += "<td class=\"table-cell-number\"> <input id=\"my-list-amount\" type=\"text\" autocomplete=\"off\" align=\"right\" name=\"stock\" onkeyup=\"\" value=\"0\"> </td>";
+    html += "<td class=\"table-cell-number\"> <input id=\"my-list-price\" type=\"text\" autocomplete=\"off\" align=\"right\" name=\"stock\" onkeyup=\"\" value=\"0\"> </td>";
+    html += "<td><i class=\"fa fa-save icon clickable\" onclick=\"saveStockListItem(this)\"></i></td>";
+    html += "<td><i class=\"fa fa-trash icon clickable\" onclick=\"deleteStockListItem(this)\"></i></td>";
+    html += "</tr>";
+   $("#my-page-stock-table tbody").append(html); 
+}
+
+function saveStockListItem(element) {
+    var row = element.parentNode.parentNode;
+    var tds = row.children;
+    tds[0].children[0].replaceWith(tds[0].children[0].value);
+    tds[1].children[0].replaceWith(tds[1].children[0].value);
+    tds[2].children[0].replaceWith(tds[2].children[0].value);
 }
 
 /**
@@ -430,4 +476,8 @@ function getUserProfile() {
         datatype: 'json',
         type: 'GET'
     });
+}
+
+function hidePopup(name) {
+    $("#" + name).addClass("hidden");
 }

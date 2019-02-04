@@ -31,3 +31,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     minimum_fee = models.FloatField(default=0)
     variable_fee = models.FloatField(default=0)
+
+class User_Stock(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    name = models.ForeignKey(Stock_Info, on_delete=models.PROTECT)
+    buy_price = models.FloatField()

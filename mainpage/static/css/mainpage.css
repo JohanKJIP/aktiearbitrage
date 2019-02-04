@@ -253,3 +253,25 @@ SEARCH BAR
 #success-tag {
     float: right;
 }
+
+
+#my-page-stock-table {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.icon {
+    height: 5px;
+    width: 5px;
+    color: blue;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#my-list-amount, #my-list-price {
+    text-align: right;
+}
